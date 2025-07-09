@@ -1,11 +1,22 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 export default function App() {
   const [formData, setFormData] = useState({ nombre: '', cultivo: '', lat: '', lng: '' });
   const [parcelas, setParcelas] = useState([]);
+
+  useEffect(() => {
+    const guardadas = localStorage.getItem("parcelas");
+    if (guardadas) {
+      setParcelas(JSON.parse(guardadas));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("parcelas", JSON.stringify(parcelas));
+  }, [parcelas]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,9 +33,15 @@ export default function App() {
     setFormData({ nombre: '', cultivo: '', lat: '', lng: '' });
   };
 
+  const borrarParcela = (index) => {
+    const nuevas = [...parcelas];
+    nuevas.splice(index, 1);
+    setParcelas(nuevas);
+  };
+
   return (
     <div style={{ padding: "1rem" }}>
-      <h1>AgroScan Spain Alpha</h1>
+      <h1>AgroScan Spain Alpha v2</h1>
 
       <form onSubmit={handleSubmit} style={{ marginBottom: "1rem" }}>
         <input type="text" name="nombre" placeholder="Nombre de parcela" value={formData.nombre} onChange={handleChange} required />
@@ -43,7 +60,8 @@ export default function App() {
           <Marker key={index} position={parcela.position}>
             <Popup>
               <strong>{parcela.nombre}</strong><br />
-              Cultivo: {parcela.cultivo}
+              Cultivo: {parcela.cultivo}<br />
+              <button onClick={() => borrarParcela(index)}>Eliminar</button>
             </Popup>
           </Marker>
         ))}
