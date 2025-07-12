@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
 }
-h1, h2 {
+h1, h2, h3 {
   color: #2c3e50;
 }
 select {
@@ -21,4 +21,15 @@ th, td {
   border: 1px solid #ccc;
   padding: 0.5rem;
   text-align: left;
+}
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background: #1a252f;
 }
