@@ -1,59 +1,36 @@
-
 import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Polygon } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-const zonas = {
-  fertilidad: [
-    {
-      nombre: "Zona Alta Fertilidad",
-      tipo: "franco",
-      info: "vid, hortalizas",
-      color: "green",
-      coords: [[
-        [40.0, -4.0], [40.0, -3.5], [40.5, -3.5], [40.5, -4.0]
-      ]]
-    },
-    {
-      nombre: "Zona Media Fertilidad",
-      tipo: "arcilloso",
-      info: "almendro, olivo",
-      color: "orange",
-      coords: [[
-        [39.5, -4.5], [39.5, -4.0], [40.0, -4.0], [40.0, -4.5]
-      ]]
-    },
-    {
-      nombre: "Zona Baja Fertilidad",
-      tipo: "arenoso",
-      info: "lavanda, trigo duro",
-      color: "red",
-      coords: [[
-        [39.0, -3.8], [39.0, -3.3], [39.5, -3.3], [39.5, -3.8]
-      ]]
-    }
-  ],
-  cultivos: [
-    {
-      nombre: "Zona Viñedo",
-      tipo: "franco",
-      info: "vid",
-      color: "#6a0dad",
-      coords: [[
-        [40.0, -4.8], [40.0, -4.3], [40.5, -4.3], [40.5, -4.8]
-      ]]
-    },
-    {
-      nombre: "Zona Cereal",
-      tipo: "arenoso",
-      info: "trigo, avena",
-      color: "#b8860b",
-      coords: [[
-        [39.0, -4.5], [39.0, -4.0], [39.5, -4.0], [39.5, -4.5]
-      ]]
-    }
-  ]
-};
+const zonasFertilidad = [
+  {
+    nombre: "Zona Alta Fertilidad",
+    tipo: "franco",
+    info: "vid, hortalizas",
+    color: "green",
+    coords: [[
+      [40.0, -4.0], [40.0, -3.5], [40.5, -3.5], [40.5, -4.0]
+    ]]
+  },
+  {
+    nombre: "Zona Media Fertilidad",
+    tipo: "arcilloso",
+    info: "almendro, olivo",
+    color: "orange",
+    coords: [[
+      [39.5, -4.5], [39.5, -4.0], [40.0, -4.0], [40.0, -4.5]
+    ]]
+  },
+  {
+    nombre: "Zona Baja Fertilidad",
+    tipo: "arenoso",
+    info: "lavanda, trigo duro",
+    color: "red",
+    coords: [[
+      [39.0, -3.8], [39.0, -3.3], [39.5, -3.3], [39.5, -3.8]
+    ]]
+  }
+];
 
 const parcelas = [
   {
@@ -92,7 +69,7 @@ const parcelas = [
 ];
 
 export default function App() {
-  const [modo, setModo] = useState("fertilidad");
+  const [mostrarZonas, setMostrarZonas] = useState(false);
   const [filtroSuelo, setFiltroSuelo] = useState("");
   const [filtroCultivo, setFiltroCultivo] = useState("");
 
@@ -103,17 +80,14 @@ export default function App() {
 
   return (
     <div style={{ padding: "1rem" }}>
-      <h1>AgroScan Spain Alpha v10</h1>
-      <h2>Visualización: {modo === "fertilidad" ? "Fertilidad del Suelo" : "Tipo de Cultivo"}</h2>
+      <h1>AgroScan Spain Alpha v11</h1>
+      <h2>Mapa mejorado + Filtros</h2>
 
-      <div style={{ marginBottom: "1rem" }}>
-        <button onClick={() => setModo("fertilidad")}>Mostrar Fertilidad</button>
-        <button onClick={() => setModo("cultivos")} style={{ marginLeft: "1rem" }}>
-          Mostrar Cultivos
-        </button>
-      </div>
+      <button onClick={() => setMostrarZonas(!mostrarZonas)}>
+        {mostrarZonas ? "Ocultar zonas de fertilidad" : "Mostrar zonas de fertilidad"}
+      </button>
 
-      <div style={{ marginBottom: "1rem", display: "flex", gap: "1rem" }}>
+      <div style={{ margin: "1rem 0", display: "flex", gap: "1rem" }}>
         <select value={filtroSuelo} onChange={e => setFiltroSuelo(e.target.value)}>
           <option value="">Todos los suelos</option>
           <option value="arcilloso">Arcilloso</option>
@@ -134,15 +108,17 @@ export default function App() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
         />
-        {zonas[modo].map((zona, i) => (
-          <Polygon key={i} positions={zona.coords} pathOptions={{ color: zona.color, fillOpacity: 0.4 }}>
+
+        {mostrarZonas && zonasFertilidad.map((zona, i) => (
+          <Polygon key={i} positions={zona.coords} pathOptions={{ color: zona.color, fillOpacity: 0.2 }}>
             <Popup>
               <strong>{zona.nombre}</strong><br />
-              Suelo: {zona.tipo}<br />
-              Recomendado: {zona.info}
+              Tipo de suelo: {zona.tipo}<br />
+              Recomendado para: {zona.info}
             </Popup>
           </Polygon>
         ))}
+
         {parcelasFiltradas.map((p, i) => (
           <Marker key={i} position={p.ubicacion}>
             <Popup>
