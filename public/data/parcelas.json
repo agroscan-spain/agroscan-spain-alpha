@@ -1,0 +1,44 @@
+[
+  {
+    "nombre": "Finca El Romeral",
+    "ubicacion": [37.5744, -4.7397],
+    "suelo": "arcilloso",
+    "cultivo": "almendro",
+    "plantas": ["lavanda", "tomillo"],
+    "plagas": ["mosca del almendro", "pulgón"],
+    "residuos": ["cáscaras de almendra", "ramas de poda"],
+    "animales": ["cabras", "gallinas"],
+    "abono": "compost rico en potasio",
+    "superficie": "3 ha",
+    "precio": "28.000€",
+    "contacto": "romeral@agroscan.es"
+  },
+  {
+    "nombre": "Viñedo San Marcos",
+    "ubicacion": [41.6528, -4.7286],
+    "suelo": "franco",
+    "cultivo": "vid",
+    "plantas": ["caléndula", "achicoria"],
+    "plagas": ["araña roja", "mildiu"],
+    "residuos": ["hojas de viña", "racimos descartados"],
+    "animales": ["ovejas", "gallinas"],
+    "abono": "compost con nitrógeno vegetal",
+    "superficie": "5 ha",
+    "precio": "40.000€",
+    "contacto": "sanmarcos@agroscan.es"
+  },
+  {
+    "nombre": "Huerto Sierra Verde",
+    "ubicacion": [39.4699, -0.3763],
+    "suelo": "arenoso",
+    "cultivo": "tomate ecológico",
+    "plantas": ["albahaca", "perejil"],
+    "plagas": ["nematodos", "mosca blanca"],
+    "residuos": ["restos de tomate", "hojas secas"],
+    "animales": ["cerdos", "patos"],
+    "abono": "biolíquido natural fermentado",
+    "superficie": "2 ha",
+    "precio": "19.000€",
+    "contacto": "sierra@agroscan.es"
+  }
+]
