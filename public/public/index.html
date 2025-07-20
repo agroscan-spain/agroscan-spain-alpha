@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>AgroScan Spain Alpha v12</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>AgroScan Spain Alpha v12</h1>
+  <h2>Visualización: Fertilidad + Ciclo Ecológico + Base de Datos</h2>
+  <div class="filtros">
+    <button onclick="toggleFertilidad()">Mostrar/Ocultar fertilidad</button>
+    <select id="sueloFilter" onchange="filtrarParcelas()">
+      <option value="todos">Todos los suelos</option>
+    </select>
+    <select id="cultivoFilter" onchange="filtrarParcelas()">
+      <option value="todos">Todos los cultivos</option>
+    </select>
+  </div>
+  <div id="map" style="height: 500px;"></div>
+  <table>
+    <thead>
+      <tr><th>Nombre</th><th>Suelo</th><th>Cultivo</th><th>Superficie</th><th>Precio</th><th>Contacto</th></tr>
+    </thead>
+    <tbody id="tabla-parcelas"></tbody>
+  </table>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="parcelas.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
